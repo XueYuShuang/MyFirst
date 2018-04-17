@@ -1,12 +1,16 @@
 package com.example.lenovo.transpic;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         {
             @Override
             public void onClick(View v) {
-                Intent o = new Intent(MainActivity.this, arrayAdapter.class);
+                Intent o = new Intent(MainActivity.this, GSPic.class);
                 //o.putExtra("data", "fun2");// 传递参数
                 startActivity(o);
             }
@@ -52,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         {
             @Override
             public void onClick(View v) {
-                Intent j = new Intent(MainActivity.this, simpleAdapter.class);
+                Intent j = new Intent(MainActivity.this, GSPic.class);
                 //j.putExtra("data", "fun3");// 传递参数
                 startActivity(j);
             }
@@ -65,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent k = new Intent(MainActivity.this, GSPic.class);
                 k.putExtra("data", "fun4");// 传递参数
                 startActivity(k);
+
             }
         });
 

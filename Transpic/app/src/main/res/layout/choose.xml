@@ -117,7 +117,7 @@
         android:layout_marginEnd="8dp" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/CH_imageView"
         android:layout_width="167dp"
         android:layout_height="222dp"
         app:srcCompat="@drawable/function"
@@ -130,7 +130,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
         app:layout_constraintHorizontal_bias="0.383"
-        app:layout_constraintVertical_bias="0.34" />
+        app:layout_constraintVertical_bias="0.333" />
 
     <ImageButton
         android:id="@+id/CH_imageButton6"

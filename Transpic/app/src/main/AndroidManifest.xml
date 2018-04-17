@@ -2,10 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.lenovo.transpic">
 
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.CAMERA" />
+
 
     <application
         android:allowBackup="true"
@@ -22,8 +23,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".GSPic" />
-        <activity android:name=".arrayAdapter" />
-        <activity android:name=".simpleAdapter"></activity>
     </application>
 
 </manifest>
