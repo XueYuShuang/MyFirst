@@ -1,1 +1,2 @@
 Here is new feature_test
+Now it change
