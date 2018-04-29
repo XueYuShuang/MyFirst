@@ -7,7 +7,6 @@
     tools:context="com.example.lenovo.transpic.MainActivity">
 
 
-
     <ImageButton
         android:id="@+id/imagebutton1"
         android:layout_width="124dp"
