@@ -3,6 +3,10 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
     buildToolsVersion "27.0.3"
+    aaptOptions {
+        cruncherEnabled = false
+        useNewCruncher = false
+    }
     defaultConfig {
         applicationId "com.example.lenovo.transpic"
         minSdkVersion 15
