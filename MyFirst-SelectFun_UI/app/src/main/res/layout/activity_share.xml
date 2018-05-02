@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/activity_title"/>
+
+    <ImageView
+        android:id="@+id/iv_pic"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="80dp"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorWhite"/>
+
+    <LinearLayout
+        android:id="@+id/layout_success"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_below="@id/iv_pic"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="20dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/btn_check"
+            android:layout_marginRight="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已保存到相册"
+            android:textSize="14dp"
+            android:textColor="@color/colorTxtNormal"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txt_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="分享给小伙伴"
+        android:textSize="14dp"
+        android:layout_marginLeft="25dp"
+        android:layout_below="@id/layout_success"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/txt_share"
+        android:layout_marginLeft="30dp">
+
+        <ImageView
+            android:id="@+id/btn_qq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:src="@drawable/btn_qq" />
+
+        <ImageView
+            android:id="@+id/btn_qzone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:src="@drawable/btn_qzone"
+            />
+
+        <ImageView
+            android:id="@+id/btn_microblog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:src="@drawable/btn_microblog"/>
+
+        <ImageView
+            android:id="@+id/btn_wechat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:src="@drawable/btn_wechat"
+         />
+
+        <ImageView
+            android:id="@+id/btn_circle_of_friends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:src="@drawable/btn_circle_of_friends"
+        />
+    </LinearLayout>
+
+</RelativeLayout>
