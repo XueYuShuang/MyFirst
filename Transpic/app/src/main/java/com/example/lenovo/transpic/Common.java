@@ -33,6 +33,8 @@ public class Common {
 
 
 
+
+
     /** * 图片转成string *  * @param bitmap * @return */
     public static String convertIconToString(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();// outputstream
