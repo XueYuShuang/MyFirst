@@ -1,42 +1,42 @@
 package com.example.lenovo.transpic;
 
-        import android.Manifest;
-        import android.app.Activity;
-        import android.content.Context;
-        import android.content.DialogInterface;
-        import android.content.Intent;
-        import android.content.pm.PackageManager;
-        import android.database.Cursor;
-        import android.graphics.Bitmap;
-        import android.graphics.BitmapFactory;
-        import android.graphics.drawable.AnimationDrawable;
-        import android.graphics.drawable.BitmapDrawable;
-        import android.net.Uri;
-        import android.os.Handler;
-        import android.os.Message;
-        import android.provider.MediaStore;
-        import android.support.v4.app.ActivityCompat;
-        import android.support.v4.content.ContextCompat;
-        import android.support.v7.app.AlertDialog;
-        import android.support.v7.app.AppCompatActivity;
-        import android.os.Bundle;
-        import android.util.Log;
-        import android.view.View;
-        import android.widget.Button;
-        import android.widget.ImageButton;
-        import android.widget.ImageView;
-        import android.widget.TextView;
-        import android.widget.Toast;
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
+import android.os.Handler;
+import android.os.Message;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-        import com.alibaba.fastjson.JSONObject;
-        import com.loopj.android.http.RequestParams;
+import com.alibaba.fastjson.JSONObject;
+import com.loopj.android.http.RequestParams;
 
-        import java.io.File;
-        import java.io.FileNotFoundException;
-        import java.io.FileOutputStream;
-        import java.io.IOException;
-        import java.text.SimpleDateFormat;
-        import java.util.Date;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -97,7 +97,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //Toast.makeText(this, "相机权限-GET", Toast.LENGTH_SHORT).show();
         }
 
-        Handler handler = new Handler() {};
+        Handler handler = new Handler() {
+        };
         checkPermission(handler);
     }
 
@@ -152,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
                 //Toast.makeText(this, picturePath, Toast.LENGTH_SHORT).show();
             }
-        } else if (funs == 2){
+        } else if (funs == 2) {
             int i = 0;
             if (resultCode == Activity.RESULT_OK) {
 

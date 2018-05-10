@@ -2,13 +2,18 @@ package com.example.lenovo.transpic;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -18,10 +23,14 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import static android.R.attr.bitmap;
 
 /**
  * Created by lenovo on 2018/4/18.
@@ -31,11 +40,9 @@ import java.util.Set;
 public class Common {
 
 
-
-
-
-
-    /** * 图片转成string *  * @param bitmap * @return */
+    /**
+     * 图片转成string *  * @param bitmap * @return
+     */
     public static String convertIconToString(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();// outputstream
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
@@ -45,7 +52,9 @@ public class Common {
     }
 
 
-    /** * string转成bitmap *  * @param st */
+    /**
+     * string转成bitmap *  * @param st
+     */
     public static Bitmap convertStringToIcon(String st) {
         // OutputStream out;
         Bitmap bitmap = null;
@@ -56,21 +65,20 @@ public class Common {
             bitmap = BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.length);
             // bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
             return bitmap;
-        } catch (Exception e) { return null; }
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 
     // replace(oldChar, newChar)方法	参数1:要被替换的字符,参数2:替换进去的字符
-    public static String AreplaceB(String str1){
+    public static String AreplaceB(String str1) {
         String str = null;
         //str = str1;
-        str = str1.replace(" ","+");
+        str = str1.replace(" ", "+");
 
         return str;
     }
-
-
-
 
 
     /**
@@ -107,7 +115,7 @@ public class Common {
             bitmapArray = Base64.decode(st, Base64.DEFAULT);
             bitmap = BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.length);
             Log.v("-   -",
-                    "bitmap   bitmapbitmapbitmapbitmap    bitmap"+bitmap);
+                    "bitmap   bitmapbitmapbitmapbitmap    bitmap" + bitmap);
             return bitmap;
         } catch (Exception e) {
             return null;
@@ -153,7 +161,6 @@ public class Common {
             pw.close();
 
 
-
             // 获取响应头
             Map<String, List<String>> map = conn.getHeaderFields();
             Set<Map.Entry<String, List<String>>> entry = map.entrySet();
@@ -191,8 +198,44 @@ public class Common {
         return result.toString();
     }
 
-}
 
+    public static String SaveImage(Bitmap bit) {
+
+        if (bit != null) {
+            //Bitmap bitmap = ((BitmapDrawable) ((ImageView) image).getDrawable()).getBitmap(); // 获取Bitmap
+            FileOutputStream b = null;
+
+            File file = new File("/storage/emulated/0/DCIM/TranspicImage/");
+            if (!file.exists()) {
+                file.mkdirs();// 创建文件夹
+            }
+            String str = null;
+            Date date = null;
+            SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");//获取当前时间，进一步转化为字符串
+            date = new Date();
+            str = format.format(date);
+            String fileName = "/storage/emulated/0/DCIM/TranspicImage/" + str + ".jpg";
+            try {
+                b = new FileOutputStream(fileName);
+                bit.compress(Bitmap.CompressFormat.JPEG, 100, b);// 把数据写入文件
+                //Toast.makeText(this, "图片保存成功:(DCIM/TranspicImage/" + str + ".jpg)", Toast.LENGTH_SHORT).show();
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    b.flush();
+                    b.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return fileName;
+        } else {
+            return "Error";
+        }
+    }
+}
 
 
 

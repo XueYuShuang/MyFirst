@@ -30,4 +30,6 @@ dependencies {
     compile 'com.android.support:design:26.+'
     compile 'com.bm.photoview:library:1.4.1'
     testCompile 'junit:junit:4.12'
+    compile 'com.github.chrisbanes.photoview:library:1.2.4'
+    compile 'com.zftlive.android.library:feature-android-imageloader:1.0.0'
 }

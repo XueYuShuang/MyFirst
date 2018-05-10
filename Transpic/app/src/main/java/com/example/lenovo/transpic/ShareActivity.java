@@ -23,7 +23,7 @@ public class ShareActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share);
 
-        TitleBuilder titleBuilder =  new TitleBuilder(this);
+        TitleBuilder titleBuilder = new TitleBuilder(this);
         titleBuilder.setTitleText("保存/分享");
         titleBuilder.setLeftIco(R.drawable.btn_back_selector);
         titleBuilder.setRightIco(R.drawable.btn_home_selector);
@@ -39,12 +39,12 @@ public class ShareActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void bindView() {
-        ivQQ = (ImageView)findViewById(R.id.btn_qq);
-        ivPic = (ImageView)findViewById(R.id.iv_pic);
-        ivQZone = (ImageView)findViewById(R.id.btn_qzone);
-        ivWechat= (ImageView)findViewById(R.id.btn_wechat);
-        ivMicroblog = (ImageView)findViewById(R.id.btn_microblog);
-        ivCircleOfFriends = (ImageView)findViewById(R.id.btn_circle_of_friends);
+        ivQQ = (ImageView) findViewById(R.id.btn_qq);
+        ivPic = (ImageView) findViewById(R.id.iv_pic);
+        ivQZone = (ImageView) findViewById(R.id.btn_qzone);
+        ivWechat = (ImageView) findViewById(R.id.btn_wechat);
+        ivMicroblog = (ImageView) findViewById(R.id.btn_microblog);
+        ivCircleOfFriends = (ImageView) findViewById(R.id.btn_circle_of_friends);
 
         ivCircleOfFriends.setOnClickListener(this);
         ivMicroblog.setOnClickListener(this);
@@ -58,7 +58,7 @@ public class ShareActivity extends AppCompatActivity implements View.OnClickList
         public void onClick(View view) {
             //返回美化图片界面
             Intent r = new Intent(ShareActivity.this, SelFunActivity.class);
-            r.putExtra("ImagePath",str);
+            r.putExtra("ImagePath", str);
             startActivity(r);
 
             finish();

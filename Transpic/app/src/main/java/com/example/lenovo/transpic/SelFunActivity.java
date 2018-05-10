@@ -26,12 +26,29 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSONObject;
 import com.loopj.android.http.RequestParams;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+import uk.co.senab.photoview.PhotoView;
+import uk.co.senab.photoview.PhotoViewAttacher;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimerTask;
 
 public class SelFunActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView txtColor;
@@ -39,10 +56,14 @@ public class SelFunActivity extends AppCompatActivity implements View.OnClickLis
     private TextView txtRepair;
     private static int CAMERA_REQUEST_CODE = 1;
     private int permissions_state = 0;
-    private ImageView image;
+    //private ImageView image;
     private String str = "fun";
     private String ImagePath = null;
     private String imagename = null;
+    private PhotoView iv_photo;
+    private PhotoViewAttacher attacher;
+    long delay = 5000;
+    long period = 3000;
 
 
     @Override
@@ -50,7 +71,7 @@ public class SelFunActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sel_fun);
 
-        TitleBuilder titleBuilder =  new TitleBuilder(this);
+        TitleBuilder titleBuilder = new TitleBuilder(this);
         titleBuilder.setTitleText("美化图片");
         titleBuilder.setLeftIco(R.drawable.btn_back_selector);
         titleBuilder.setRightIco(R.drawable.btn_download_selector);
@@ -67,15 +88,15 @@ public class SelFunActivity extends AppCompatActivity implements View.OnClickLis
 
         Intent i = getIntent();
         ImagePath = i.getStringExtra("ImagePath");
-        image.setImageBitmap(BitmapFactory.decodeFile(ImagePath));
+        iv_photo.setImageBitmap(BitmapFactory.decodeFile(ImagePath));
     }
 
     //组件初始化与事件绑定
     private void bindView() {
-        txtColor = (TextView)findViewById(R.id.txt_color);
-        txtSketch = (TextView)findViewById(R.id.txt_sketch);
-        txtRepair = (TextView)findViewById(R.id.txt_repair);
-        image = (ImageView)findViewById(R.id.CH_photo);
+        txtColor = (TextView) findViewById(R.id.txt_color);
+        txtSketch = (TextView) findViewById(R.id.txt_sketch);
+        txtRepair = (TextView) findViewById(R.id.txt_repair);
+        iv_photo = (PhotoView) findViewById(R.id.iv_photo);
 
         txtColor.setOnClickListener(this);
         txtSketch.setOnClickListener(this);
@@ -83,7 +104,7 @@ public class SelFunActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     //重置所有文本的选中状态
-    public void  resetPreState(){
+    public void resetPreState() {
         txtColor.setPressed(false);
         txtSketch.setPressed(false);
         txtRepair.setPressed(false);
@@ -104,54 +125,31 @@ public class SelFunActivity extends AppCompatActivity implements View.OnClickLis
         public void onClick(View view) {
 
             String state = "OK";
-            state = SendImage("g");
-            if (state == "OK"){
+            //state = SendImage("g");
+            if (state == "OK") {
 
                 //下载并保存
-                Intent intent = new Intent(SelFunActivity.this, ShareActivity.class);
-                intent.putExtra("ImagePath",ImagePath);
-                startActivity(intent);
-            }else{
-                Toast.makeText(SelFunActivity.this, "尚未处理完毕", Toast.LENGTH_SHORT).show();
+                Bitmap bitmap = ((BitmapDrawable) ((PhotoView) iv_photo).getDrawable()).getBitmap(); // 获取Bitmap
+                state = Common.SaveImage(bitmap);
+
+                if(state == "Error"|| state == "OK"){
+                    Toast.makeText(SelFunActivity.this, state, Toast.LENGTH_SHORT).show();
+                }else{
+                    Intent intent = new Intent(SelFunActivity.this, ShareActivity.class);
+                    intent.putExtra("ImagePath", state);
+                    startActivity(intent);
+                }
+            } else {
+                Toast.makeText(SelFunActivity.this, "服务器尚未处理完毕", Toast.LENGTH_SHORT).show();
             }
 
-            /*
-            if(state == "OK"){
-                Bitmap bitmap = ((BitmapDrawable) ((ImageView) image).getDrawable()).getBitmap(); // 获取Bitmap
-                FileOutputStream b = null;
 
-                File file = new File("/storage/emulated/0/DCIM/TranspicImage/");
-                if (!file.exists()) {
-                    file.mkdirs();// 创建文件夹
-                }
-                String str = null;
-                Date date = null;
-                SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");//获取当前时间，进一步转化为字符串
-                date = new Date();
-                str = format.format(date);
-                fileName = "/storage/emulated/0/DCIM/TranspicImage/" + str + ".jpg";
-                try {
-                    b = new FileOutputStream(fileName);
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);// 把数据写入文件
-                    //Toast.makeText(this, "图片保存成功:(DCIM/TranspicImage/" + str + ".jpg)", Toast.LENGTH_SHORT).show();
-
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } finally {
-                    try {
-                        b.flush();
-                        b.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }*/
         }
     };
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.txt_color:
                 //黑白照片变彩色功能
                 SendImage("c");
@@ -181,30 +179,29 @@ public class SelFunActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    public String SendImage (String fun){
+    public String SendImage(String fun) {
 
         String info = null;
-        image = (ImageView) findViewById(R.id.CH_photo);
+        iv_photo = (PhotoView) findViewById(R.id.iv_photo);
 
         String userId = "15301146";
-        Bitmap bitmap = ((BitmapDrawable) ((ImageView) image).getDrawable()).getBitmap();
+        Bitmap bitmap = ((BitmapDrawable) ((ImageView) iv_photo).getDrawable()).getBitmap();
 
         //根据返回的信息  执行不同更新操作
-        Handler handler = new Handler()
-        {
+        Handler handler = new Handler() {
             public void handleMessage(Message msg) {
 
                 switch (msg.what) {
-                    case 1 :
+                    case 1:
                         //bt.setText("正在下载...");
                         //textview.setText("123321321");
                         break;
-                    case 2 :
+                    case 2:
                         Bitmap bm = (Bitmap) msg.obj;
                         //iv.setImageBitmap(bm);
 
                         break;
-                    case 3 :
+                    case 3:
                         Bundle bundle = msg.getData();
                         String data = bundle.getString("result");
                         String str1 = "";
@@ -214,24 +211,24 @@ public class SelFunActivity extends AppCompatActivity implements View.OnClickLis
                         str1 = json.getString("a");
                         str2 = json.getString("b");
 
-                        if(str1 != null ){
+                        if (str1 != null) {
                             imagename = str1;
 
-                            Bitmap bitmap = ((BitmapDrawable) ((ImageView) image).getDrawable()).getBitmap();
+                            Bitmap bitmap = ((BitmapDrawable) ((ImageView) iv_photo).getDrawable()).getBitmap();
                             str = Common.convertIconToString(bitmap);
 
-                            ImageView imageView = (ImageView) findViewById(R.id.CH_photo);
+                            ImageView imageView = (PhotoView) findViewById(R.id.iv_photo);
                             imageView.setImageBitmap(Common.convertStringToIcon(str2));
                         }
                         break;
                 }
             }
         };
-        updateHeadImage(userId, bitmap,fun, handler);
+        updateHeadImage(userId, bitmap, fun, handler);
         return info;
     }
 
-    public static void updateHeadImage(final String userId, final Bitmap image,final String fun, final Handler handler) {
+    public static void updateHeadImage(final String userId, final Bitmap image, final String fun, final Handler handler) {
         new Thread() {
             @Override
             public void run() {
@@ -269,6 +266,38 @@ public class SelFunActivity extends AppCompatActivity implements View.OnClickLis
         }.start();
     }
 
+    public TimerTask Ttask(final String ImageName){
+
+
+        try{
+            TimerTask task= new TimerTask() {
+                int count = 0;
+                @Override
+                public void run() {
+                    count++;
+                    Log.i("",count + "    --------");
+                    SendImage(ImageName);
+                }
+            };
+            return task;
+
+        }catch(Exception e){
+            TimerTask task= new TimerTask() {
+                int count = 0;
+                @Override
+                public void run() {
+                    count++;
+                    Log.i("",count + "   图片名为空 --------");
+                    SendImage("Transpic");
+                }
+            };
+
+            return task;
+
+        }
+
+
+    }
 
 
 
