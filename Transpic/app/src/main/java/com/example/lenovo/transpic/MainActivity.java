@@ -61,6 +61,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MyApplication.addDestoryActivity(this,"MainActivity");
+
+        if(!MyApplication.destoryMap.isEmpty()){
+            MyApplication.destoryActivity("SelFunActivity");
+        }
+
+
 
         ImgBtnAlbum = (ImageButton) findViewById(R.id.img_btn_album);
         ImgBtnCamera = (ImageButton) findViewById(R.id.img_btn_camera);
@@ -101,6 +108,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         };
         checkPermission(handler);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Toast.makeText(this, "onResume   ", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        CleanMessageUtil.clearAllCache(getApplicationContext());
+        Toast.makeText(this, "onRestart   ", Toast.LENGTH_SHORT).show();
+    }
+
 
     @Override
     public void onClick(View view) {

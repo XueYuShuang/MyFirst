@@ -42,7 +42,7 @@ public class TitleBuilder {
         return this;
     }
 
-    //设置标题栏左边显示图片
+    //设置标题栏右边显示图片
     public TitleBuilder setRightIco(int resId) {
         ivRightIco.setVisibility(resId > 0 ? View.VISIBLE : View.GONE);
         ivRightIco.setImageResource(resId);

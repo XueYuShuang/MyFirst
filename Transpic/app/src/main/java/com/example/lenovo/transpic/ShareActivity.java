@@ -22,6 +22,10 @@ public class ShareActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share);
+        MyApplication.addDestoryActivity(this,"ShareActivity");
+        if(!MyApplication.destoryMap.isEmpty()){
+            MyApplication.destoryActivity("SelFunActivity");
+        }
 
         TitleBuilder titleBuilder = new TitleBuilder(this);
         titleBuilder.setTitleText("保存/分享");
