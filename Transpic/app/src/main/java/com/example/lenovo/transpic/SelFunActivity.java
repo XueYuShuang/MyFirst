@@ -89,6 +89,7 @@ public class SelFunActivity extends AppCompatActivity implements View.OnClickLis
         if(!MyApplication.destoryMap.isEmpty()){
             MyApplication.destoryActivity("MainActivity");
         }
+        //MyApplication.destoryMap.containsKey("MainActivity");
 
         TitleBuilder titleBuilder = new TitleBuilder(this);
         titleBuilder.setTitleText("美化图片");
@@ -246,7 +247,7 @@ public class SelFunActivity extends AppCompatActivity implements View.OnClickLis
                         str1 = json.getString("state");
                         Log.i("result  result ",  str1+"   "+str2);
                         Log.i("result  - - ", "  handle   handle  handle");
-                        Toast.makeText(SelFunActivity.this, str1+"   "+str2, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(SelFunActivity.this, str1+"   "+str2, Toast.LENGTH_LONG).show();
                         if (str1 != null) {
 
                             if(str1 =="2"){
@@ -290,7 +291,7 @@ public class SelFunActivity extends AppCompatActivity implements View.OnClickLis
                     String url = null;
                     if(fun!="sketch"&&fun!="color"&&fun!="repair"){
                         params.put("pic_name", fun);
-                        url = "http://192.168.142.139:8888/check_pic";
+                        url = "http://192.168.43.176:8888/check_pic";
                     }else{
                         /*  47.94.146.51
                         params.put("username", userId);
@@ -302,7 +303,7 @@ public class SelFunActivity extends AppCompatActivity implements View.OnClickLis
                         params.put("pic", Common.convertIconToString(image));
                         params.put("fun", fun);
 
-                        url = "http://192.168.142.139:8888/send_pic";
+                        url = "http://192.168.43.176:8888/send_pic";
 
                     }
 
