@@ -1,6 +1,7 @@
 package com.example.lenovo.transpic;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -75,6 +76,7 @@ public class SelFunActivity extends AppCompatActivity implements View.OnClickLis
     private String T_str = null;
     private static String info = null;
     //Timer timer = new Timer();
+    private Progress progress;
 
     int isChange = 0;
     int count = 0;
@@ -169,9 +171,11 @@ public class SelFunActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
+
         switch (view.getId()) {
             case R.id.txt_color:
                 //黑白照片变彩色功能
+               progress = new Progress();
                 try {
                     Control_send("color");
                 } catch (InterruptedException e) {
@@ -184,6 +188,7 @@ public class SelFunActivity extends AppCompatActivity implements View.OnClickLis
 
             case R.id.txt_sketch:
                 //漫画线稿上色功能
+                progress = new Progress();
                 try {
                     Control_send("sketch");
                 } catch (InterruptedException e) {
@@ -196,6 +201,7 @@ public class SelFunActivity extends AppCompatActivity implements View.OnClickLis
 
             case R.id.txt_repair:
                 //破损图片修复功能
+                progress = new Progress();
                 try {
                     Control_send("repair");
                 } catch (InterruptedException e) {
