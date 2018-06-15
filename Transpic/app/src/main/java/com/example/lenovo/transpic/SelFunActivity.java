@@ -76,7 +76,6 @@ public class SelFunActivity extends AppCompatActivity implements View.OnClickLis
     private String T_str = null;
     private static String info = null;
     //Timer timer = new Timer();
-    private Progress progress;
 
     int isChange = 0;
     int count = 0;
@@ -175,12 +174,16 @@ public class SelFunActivity extends AppCompatActivity implements View.OnClickLis
         switch (view.getId()) {
             case R.id.txt_color:
                 //黑白照片变彩色功能
-               progress = new Progress();
-                try {
+                LoadingView loadingView = (LoadingView)findViewById(R.id.loading);
+                loadingView.start();
+                loadingView.success();
+               //loadingView.failed();
+
+             /*   try {
                     Control_send("color");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                }
+                }*/
 
                 //resetPreState();
                 Toast.makeText(SelFunActivity.this, "color", Toast.LENGTH_LONG).show();
@@ -188,7 +191,6 @@ public class SelFunActivity extends AppCompatActivity implements View.OnClickLis
 
             case R.id.txt_sketch:
                 //漫画线稿上色功能
-                progress = new Progress();
                 try {
                     Control_send("sketch");
                 } catch (InterruptedException e) {
@@ -201,7 +203,6 @@ public class SelFunActivity extends AppCompatActivity implements View.OnClickLis
 
             case R.id.txt_repair:
                 //破损图片修复功能
-                progress = new Progress();
                 try {
                     Control_send("repair");
                 } catch (InterruptedException e) {
@@ -215,6 +216,14 @@ public class SelFunActivity extends AppCompatActivity implements View.OnClickLis
             default:
                 break;
         }
+    }
+
+    public void Progress(){
+        ProgressDialog progressDialog = new ProgressDialog(SelFunActivity.this);//1.创建一个ProgressDialog的实例
+        progressDialog.setTitle("提示");//2.设置标题
+        progressDialog.setMessage("正在加载中，请稍等...");//3.设置显示内容
+        progressDialog.setCancelable(true);//4.设置可否用back键关闭对话框
+        progressDialog.show();//5.将ProgessDialog显示出来
     }
 
     public void SendImage(String fun) {
