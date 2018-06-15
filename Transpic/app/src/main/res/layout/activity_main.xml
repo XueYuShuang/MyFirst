@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/iv_recycle1"/>
+
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        android:src="@drawable/iv_logo"/>
+
+    <ImageView
+        android:id="@+id/iv_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@id/iv_logo"
+        android:src="@drawable/iv_txt"/>
+
+    <ImageButton
+        android:id="@+id/img_btn_album"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="230dp"
+        android:layout_marginLeft="50dp"
+        android:src="@drawable/album_btn_state"
+        android:background="#00000000"/>
+
+    <ImageButton
+        android:id="@+id/img_btn_camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/img_btn_album"
+        android:layout_marginTop="230dp"
+        android:layout_marginLeft="40dp"
+        android:src="@drawable/btn_camera"
+        android:background="#00000000"/>
+</RelativeLayout>
